@@ -1,26 +1,30 @@
 FROM ubuntu:latest
-RUN apt-get update && \
-    apt-get install -y default-jdk && \
-    apt-get install -y wget && \
-    apt-get install -y unzip
-RUN mkdir /opt/tomcat/
-WORKDIR /opt/tomcat
-ADD https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.10/bin/apache-tomcat-10.1.10.tar.gz .
-RUN tar -xvzf apache-tomcat-10.1.10.tar.gz
-RUN mv apache-tomcat-10.1.10/* /opt/tomcat
-EXPOSE 8080
-CMD ["/opt/tomcat/bin/catalina.sh", "run"]
-
-
+MAINTAINER chendureddy1999@gmail.com
+RUN sudo apt-get update \
+    sudo apt-get upgrade -y
+    sudo apt-get install -y httpd \
+    zip\
+    unzip
+ADD https://www.free-css.com/assets/files/free-css-templates/download/page254/photogenic.zip /var/www/html/
+WORKDIR /var/www/html/
+RUN unzip photogenic.zip
+RUN cp -rvf photogenic/* .
+RUN rm -rf photogenic photogenic.zip
+CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+EXPOSE 80
+ 
+ 
 # FROM ubuntu:latest
-# RUN apt-get update && \
-    apt-get install -y default-jdk && \
-    apt-get install -y wget && \
-    apt-get install -y unzip
-# RUN mkdir /opt/tomcat/
-# WORKDIR /opt/tomcat
-# ADD https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.10/bin/apache-tomcat-10.1.10.tar.gz.
-# RUN tar -xvzf apache-tomcat-10.1.10.tar.gz
-# RUN mv apache-tomcat-10.1.10/* /opt/tomcat
-# EXPOSE 8080
-# CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+# MAINTAINER chendureddy1999@gmail.com
+# RUN sudo apt-get update \
+#    sudo apt-get upgrade -y
+#    sudo apt-get install -y httpd \
+#    zip\
+#    unzip
+# ADD https://www.free-css.com/assets/files/free-css-templates/download/page265/shine.zip /var/www/html/
+# WORKDIR /var/www/html/
+# RUN unzip shine.zip
+# RUN cp -rvf shine/* .
+# RUN rm -rf shine shine.zip
+# CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+# EXPOSE 80   
